@@ -12,19 +12,19 @@
 </div>
 <div class="row margin text-center">
     <div class="btn-group" role="group">
-        <form class="btn-group" role="group" action="${pageContext.request.contextPath}/locale">
+        <!--<form class="btn-group" role="group" action="${pageContext.request.contextPath}/locale">
             <input name="locale" value="ru_RU" class="form-control" type="hidden"/>
             <button type="submit" class="btn btn-default"><img src="/resources/img/ru.png" /></button>
-        </form>
+        </form> -->
 
         <form class="btn-group" role="group" action="${pageContext.request.contextPath}/locale">
             <input name="locale" value="en_US" class="form-control" type="hidden"/>
             <button type="submit" class="btn btn-default"><img src="/resources/img/en.png" /></button>
         </form>
 
-       <!-- <form class="btn-group" role="group" action="${pageContext.request.contextPath}/locale">
+        <form class="btn-group" role="group" action="${pageContext.request.contextPath}/locale">
             <input name="locale" value="de_DE" class="form-control" type="hidden"/>
             <button type="submit" class="btn btn-default"><img src="/resources/img/de.png" /></button>
-        </form> -->
+        </form>
     </div>
 </div>
