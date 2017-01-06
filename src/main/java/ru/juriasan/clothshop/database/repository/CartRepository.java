@@ -34,6 +34,8 @@ public class CartRepository extends DbRepositoryAbs<Cart, Long> {
     private static final Logger logger =
             Logger.getLogger(CartRepository.class.getName());
 
+    private static final String GET_ALL_FOR_USER_FORMAT = "SELECT * FROM " + TABLE_NAME + " WHERE userid='%s'";
+
     private UserRepository userRepository;
     private ShopItemRepository shopItemRepository;
 
@@ -44,6 +46,23 @@ public class CartRepository extends DbRepositoryAbs<Cart, Long> {
         this.client = client;
         this.userRepository = userRepository;
         this.shopItemRepository = shopItemRepository;
+    }
+
+
+    public List<Cart> getAllForUser(User user) {
+
+        Function<ResultSet, List<Cart>> handler = result -> {
+            List<Cart> shopItems = null;
+            try {
+                shopItems = retreiveCart(result);
+            }
+            catch(SQLException ex) {
+                logger.error(ex.getMessage());
+            }
+            return shopItems;
+        };
+        List<Cart> rez = executeQuery(String.format(GET_ALL_FOR_USER_FORMAT, user.getEmail()), handler);
+        return rez;
     }
 
     @Override
@@ -125,6 +144,13 @@ public class CartRepository extends DbRepositoryAbs<Cart, Long> {
         return executeQuery(query, handler);
     }
 
+
+    public void remove(long id) {
+        String query = String.format(DELETE_FORMAT,
+                id);
+
+        executeUpdate(query);
+    }
     @Override
     public void remove(Cart cart) {
         String query = String.format(DELETE_FORMAT,

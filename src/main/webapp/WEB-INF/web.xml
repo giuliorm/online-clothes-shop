@@ -34,6 +34,29 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>CatalogueServlet</servlet-name>
+        <servlet-class>ru.juriasan.clothshop.controllers.Catalogue</servlet-class>
+        <!-- <jsp-file>/resources/jsp/shop/catalogue.jsp</jsp-file> -->
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/cart/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CartServlet</servlet-name>
+        <servlet-class>ru.juriasan.clothshop.controllers.CartServlet</servlet-class>
+        <!-- <jsp-file>/resources/jsp/shop/catalogue.jsp</jsp-file> -->
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CatalogueServlet</servlet-name>
+        <url-pattern>/catalogue/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>ru.juriasan.clothshop.controllers.Login</servlet-class>
        <!-- <jsp-file>/resources/jsp/user/login.jsp</jsp-file> -->

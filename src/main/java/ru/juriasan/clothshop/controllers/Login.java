@@ -24,12 +24,8 @@ public class Login extends HttpServlet {
         service = ServiceContextHolder.getUserService();
         // Do required initialization
     }
-    private void setLocale(HttpServletResponse response, Locale locale) {
-        response.setLocale(locale);
-    }
     private void mainRedirect(HttpServletResponse response)
             throws IOException {
-        setLocale(response, Locale.US);
         response.sendRedirect("/home"); //&language=en-US");
     }
 
@@ -37,11 +33,8 @@ public class Login extends HttpServlet {
         request.getSession().setAttribute("loggedInUser", false);
     }
 
-    private void setTrueLoginAttribute(HttpServletRequest request, String firstName, String lastName) {
-        String empty = "";
-        request.getSession().setAttribute("loggedInUser", true);
-        request.getSession().setAttribute("firstName", firstName != null ? firstName : empty);
-        request.getSession().setAttribute("lastName", lastName != null ? lastName : empty);
+    private void setTrueLoginAttribute(HttpServletRequest request, User user) {
+        request.getSession().setAttribute("user", user);
     }
 
     @Override
@@ -60,7 +53,7 @@ public class Login extends HttpServlet {
             User user = service.get(email);
             if (user != null) {
                 if (user.getPassword().equals(pass)) {
-                    setTrueLoginAttribute(request, user.getFirstName(), user.getLastName());
+                    setTrueLoginAttribute(request, user);
                 } else setFalseLoginAttribute(request);
             }
              else {
@@ -72,7 +65,7 @@ public class Login extends HttpServlet {
                     user.setFirstName(firstName);
                     user.setLastName(lastName);
                     service.create(user);
-                    setTrueLoginAttribute(request, firstName, lastName);
+                    setTrueLoginAttribute(request, user);
                 } else setFalseLoginAttribute(request);
             }
 
@@ -87,12 +80,6 @@ public class Login extends HttpServlet {
                       HttpServletResponse response)
             throws ServletException, IOException
     {
-        // Set response content type
-        //    response.setContentType("text/html");
-        // response.sendRedirect("src/main/webapp/index.jsp");
-        // Actual logic goes here.
-        //  PrintWriter out = response.getWriter();
-        ///  out.println("<h1>" + message + "</h1>");
     }
 
     public void destroy()

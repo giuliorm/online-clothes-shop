@@ -1,4 +1,4 @@
-<%--
+<%@ page import="ru.juriasan.clothshop.domain.User" %><%--
   Created by IntelliJ IDEA.
   User: GiulioRM
   Date: 12/6/2016
@@ -14,50 +14,32 @@
     <%@ include file="/resources/jsp/parts/header.jsp"%>
 </head>
 <body>
-    <% Boolean loggedInUser =(Boolean)session.getAttribute("loggedInUser");
-        if (loggedInUser != null && loggedInUser) {
+    <% User user = (User) request.getSession().getAttribute("user");
+        if (user != null) {
 
     %>
         <div class="row margin text-center">
             <label>
                 <fmt:message bundle="${labels}" key="main.welcome" />
-                <%  String firstName = (String)request.getSession().getAttribute("firstName");
-                   String secondName =   (String)request.getSession().getAttribute("lastName");
+                <%
+
                    String empty = "";
                 %>
-                 <% if (firstName != null && !firstName.equals(empty) ||
-                            secondName != null &&
-                            !secondName.equals(empty)) {  %>
-                        <%= ", " + firstName + " " + secondName %>
+                 <% if (user != null && ( user.getFirstName() != null && !user.getFirstName().equals(empty) ||
+                         user.getLastName() != null &&
+                            ! user.getLastName().equals(empty))) {  %>
+                        <%= ", " + user.getFirstName() + " " + user.getLastName() %>
                 <% } %>
             </label>
         </div>
         <div class="row margin text-center">
-            <div class="btn-group btn-group-justified" role="group">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default">
-                        <fmt:message bundle="${labels}" key="main.main" />
-                    </button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default">
-                        <fmt:message bundle="${labels}" key="main.catalogue" />
-                    </button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default">
-                        <fmt:message bundle="${labels}" key="main.cart" />
-                    </button>
-                </div>
-                <form class="btn-group" role="group" action="${pageContext.request.contextPath}/logout">
-                        <button type="submit" class="btn btn-default">
-                            <fmt:message bundle="${labels}" key="main.logout" />
-                        </button>
-                </form>
-            </div>
+            <%@ include file="/resources/jsp/main/menu.jsp"%>
         </div>
         <div class="row margin" >
             <%@ include file="/resources/jsp/parts/locales_div.jsp"%>
+        </div>
+        <div class="row margin">
+            <fmt:message bundle="${labels}" key="main.message" />
         </div>
     <% } else { %>
         <%@ include file="/resources/jsp/user/login.jsp"%>

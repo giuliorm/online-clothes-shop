@@ -25,6 +25,7 @@ public class ShopItemRepository extends DbRepositoryAbs<ShopItem, Long> {
             Logger.getLogger(ShopItemRepository.class.getName());
 
     private static final String TABLE_NAME = "shopitem";
+    private static final String ALL = "SELECT * FROM " + TABLE_NAME;
     private static final String GET_FORMAT = "SELECT * FROM " + TABLE_NAME +
             " WHERE id=%d";
     private static final String CREATE_FORMAT = "INSERT INTO " + TABLE_NAME +
@@ -35,6 +36,8 @@ public class ShopItemRepository extends DbRepositoryAbs<ShopItem, Long> {
             " WHERE id=%d";
     private static final String FIND_FORMAT = "SELECT * FROM " + TABLE_NAME +
             " WHERE name LIKE '%%%s%%' OR description LIKE '%%%s%%'";
+
+
 
     public ShopItemRepository(DbClient client) {
         super(client);
@@ -60,7 +63,7 @@ public class ShopItemRepository extends DbRepositoryAbs<ShopItem, Long> {
             //  user = new User( result.getString("email"),
             //      result.getString("password"));
 
-            ShopItem item = new ShopItem(result.getInt(id));
+            ShopItem item = new ShopItem(result.getLong(id));
             item.setName(result.getString(name));
             item.setDescription(result.getString(description));
             item.setPrice(result.getFloat(price));
@@ -89,6 +92,20 @@ public class ShopItemRepository extends DbRepositoryAbs<ShopItem, Long> {
         return rez.size() > 0 ? rez.get(0) : null;
     }
 
+    public List<ShopItem> getAll() {
+        Function<ResultSet, List<ShopItem>> handler = result -> {
+            List<ShopItem> rez = null;
+            try {
+                rez = retreiveShopItem(result);
+            }
+            catch(SQLException ex) {
+                logger.error(ex.getMessage());
+            }
+            return rez;
+        };
+        List<ShopItem> items = executeQuery(ALL, handler);
+        return items;
+    }
     @Override
     public void save(ShopItem shopItem) {
         String query = String.format(UPDATE_FORMAT,

@@ -3,6 +3,8 @@ package ru.juriasan.clothshop.services;
 import ru.juriasan.clothshop.database.repository.ShopItemRepository;
 import ru.juriasan.clothshop.domain.ShopItem;
 
+import java.util.List;
+
 /**
  * Created by GiulioRM on 12/27/2016.
  */
@@ -25,5 +27,10 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public ShopItem get(long id) {
         return repository.get(id);
+    }
+
+    @Override
+    public List<ShopItem> getAll() {
+        return repository.getAll();
     }
 }

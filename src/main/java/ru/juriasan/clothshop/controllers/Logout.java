@@ -19,27 +19,17 @@ public class Logout extends HttpServlet {
 
     public void init() throws ServletException
     {
-
         // Do required initialization
-    }
-    private void setLocale(HttpServletResponse response, Locale locale) {
-        response.setLocale(locale);
     }
     private void mainRedirect(HttpServletResponse response)
             throws IOException {
-        setLocale(response, Locale.US);
         response.sendRedirect("/home"); //&language=en-US");
     }
     @Override
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
 
-        request.getSession().setAttribute("loggedInUser", false);
-        request.getSession().removeAttribute("firstName");
-        request.getSession().removeAttribute("lastName");
-        mainRedirect(response);
             //   service.create();
     }
 
@@ -50,9 +40,7 @@ public class Logout extends HttpServlet {
     {
         response.setContentType("text/html");
 
-        request.getSession().setAttribute("loggedInUser", false);
-        request.getSession().removeAttribute("firstName");
-        request.getSession().removeAttribute("lastName");
+        request.getSession().removeAttribute("user");
         mainRedirect(response);
         // Set response content type
         //    response.setContentType("text/html");

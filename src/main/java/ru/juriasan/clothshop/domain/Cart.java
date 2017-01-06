@@ -8,6 +8,10 @@ public class Cart {
     private User user;
     private ShopItem shopItem;
 
+    public Cart() {
+
+    }
+
     public Cart(long id) {
         this.id = id;
     }
