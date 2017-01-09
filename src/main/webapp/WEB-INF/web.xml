@@ -70,7 +70,7 @@
     <servlet>
         <servlet-name>RootServlet</servlet-name>
         <servlet-class>ru.juriasan.clothshop.controllers.Root</servlet-class>
-        <jsp-file>/resources/jsp/main/main.jsp</jsp-file>
+       <!-- <jsp-file>/resources/jsp/main/main.jsp</jsp-file> -->
     </servlet>
 
     <servlet-mapping>

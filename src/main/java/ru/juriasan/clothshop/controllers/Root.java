@@ -21,6 +21,7 @@ public class Root extends HttpServlet {
                       HttpServletResponse response)
             throws ServletException, IOException
     {
+        request.getRequestDispatcher("resources/jsp/main/main.jsp").forward(request, response);
 
      //   response.sendRedirect(request.getContextPath() + "/home");
     }
