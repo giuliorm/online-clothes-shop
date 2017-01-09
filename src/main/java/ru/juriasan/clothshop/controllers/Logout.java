@@ -21,9 +21,9 @@ public class Logout extends HttpServlet {
     {
         // Do required initialization
     }
-    private void mainRedirect(HttpServletResponse response)
+    private void mainRedirect(String contextPath, HttpServletResponse response)
             throws IOException {
-        response.sendRedirect("/home"); //&language=en-US");
+        response.sendRedirect(contextPath + "/home"); //&language=en-US");
     }
     @Override
     public void doPost(HttpServletRequest request,
@@ -41,7 +41,7 @@ public class Logout extends HttpServlet {
         response.setContentType("text/html");
 
         request.getSession().removeAttribute("user");
-        mainRedirect(response);
+        mainRedirect(request.getContextPath(), response);
         // Set response content type
         //    response.setContentType("text/html");
         // response.sendRedirect("src/main/webapp/index.jsp");

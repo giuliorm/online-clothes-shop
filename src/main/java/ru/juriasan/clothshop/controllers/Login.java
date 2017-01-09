@@ -24,9 +24,9 @@ public class Login extends HttpServlet {
         service = ServiceContextHolder.getUserService();
         // Do required initialization
     }
-    private void mainRedirect(HttpServletResponse response)
+    private void mainRedirect(String contextPath, HttpServletResponse response)
             throws IOException {
-        response.sendRedirect("/home"); //&language=en-US");
+        response.sendRedirect(contextPath + "/home"); //&language=en-US");
     }
 
     private void setFalseLoginAttribute(HttpServletRequest request) {
@@ -47,7 +47,6 @@ public class Login extends HttpServlet {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         response.setContentType("text/html");
-
 
         if (email != null && pass != null) {
             User user = service.get(email);
@@ -72,7 +71,7 @@ public class Login extends HttpServlet {
         } else
             setFalseLoginAttribute(request);
 
-        mainRedirect(response);
+        mainRedirect(request.getContextPath(),response);
     }
 
     @Override
